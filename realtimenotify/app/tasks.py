@@ -1,9 +1,9 @@
 from celery import shared_task
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
-from models import Notification
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+from .models import Notification
 
 @shared_task
 def send_notification(notification_id):

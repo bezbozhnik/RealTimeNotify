@@ -1,3 +1,5 @@
+import json
+
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 class NotificationConsumer(AsyncWebsocketConsumer):
@@ -22,3 +24,12 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         message = event['message']
 
         await self.send(text_data=message)
+async def handle_message(self, message):
+    # Обработка входящего сообщения
+    # ...
+    # Отправка уведомления
+    notification = {
+        'type': 'notification',
+        'message': 'Новое уведомление',
+    }
+    await self.send(text_data=json.dumps(notification))
