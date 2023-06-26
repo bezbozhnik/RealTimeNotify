@@ -6,6 +6,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user_id = self.scope['url_route']['kwargs']['user_id']
         self.group_name = f'notifications_{self.user_id}'
+        print(self.user_id)
 
         await self.channel_layer.group_add(
             self.group_name,
@@ -19,17 +20,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             self.group_name,
             self.channel_name
         )
-
     async def notification_message(self, event):
         message = event['message']
-
         await self.send(text_data=message)
-async def handle_message(self, message):
-    # Обработка входящего сообщения
-    # ...
-    # Отправка уведомления
-    notification = {
-        'type': 'notification',
-        'message': 'Новое уведомление',
-    }
-    await self.send(text_data=json.dumps(notification))

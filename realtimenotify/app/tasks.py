@@ -12,10 +12,8 @@ def send_notification(notification_id):
         # Здесь можно выполнить необходимую логику отправки уведомления, например, отправить его через WebSocket
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            f"notifications_{notification.user.id}",  # Имя группы WebSocket, соответствующей пользователю
-            {"type": "notification.message", "message": notification.message}  # Отправка сообщения через WebSocket
+            f"notifications_123",  # Имя группы WebSocket, соответствующей пользователю
+            {"type": "notification_message", "message": notification.message}  # Отправка сообщения через WebSocket
         )
-        notification.sent_at = timezone.now()
-        notification.save()
     except ObjectDoesNotExist:
         pass
